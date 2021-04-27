@@ -3,9 +3,10 @@
             <p style="text-align: center; margin:0;padding:0;" >
                 <small>
                     Project by:- 
-                    <a href="http://www.aditya.team/" style="color:white;" class="btn btn-a btn-sm"><img src="./images/logoaditya.png" width="30">&nbsp;Aditya Bodhankar</a>
-                    <a href="#" style="color:white;" class="btn btn-a btn-sm"><img src="#"  width="30">Vishal Chaudhari</a>
-                    <a href="#" style="color:white;" class="btn btn-a btn-sm"><img src="#"  width="30">Komal Dhake</a>
+                    Aditya Bodhankar |
+                    Komal Dhake | 
+                    Kalpak Nemade |
+                    Vishal Chaudhari
                 </small>
             </p>
 
