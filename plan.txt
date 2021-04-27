@@ -1,0 +1,80 @@
+Requirements :- 
+{
+
+    main page -> Image Carsole
+                Admin Login ->
+                            DashBoard
+                            Profile
+                            Edit Profile
+                            Students' Request
+                            Approve Requests
+                            Generate Uname and Password
+                            Send Email of Uname And Password
+                            Manage Students
+                            Enable Exam form
+                            Collect Student Exam Data
+                            Disable Exam form
+                            Enable Hall Tickets
+                            Mail Hall Ticket Links
+                            Fill Marks after Exam
+                            Genetate Marksheet
+                            Activate Marksheet Button
+                            Email Link Of Marksheet
+                            Disable Hall Tickets
+                            Disable Marksheets
+                            Logout
+
+                            Mail Every Student About the notification of each status
+
+
+
+                Students' Login ->
+                            Profile
+                            Edit Profile
+                            Fill Exam form
+                            Get Hall Ticket
+                            Get Marksheet
+                            Logout
+
+                            Get Email for each step 
+
+
+                Student Registration -> Fill form
+                                        Get OTP
+                                        Validate OTP
+                                        Submit form
+                                        Validate By Admin
+                                        Get Confirmation Username and password
+
+                Notices
+}              
+
+Process :- 
+{
+    Student ->  Fill Registration Form
+                Confirm By entering OTP
+                Submit Form
+    Admin ->    Approve Student Application by Generating the Username and password
+                Mail Student Login Details
+    Student ->  Login To account using the login credentials
+                Change Password Form First time(Optional)
+                View the Profile
+                Make The required corrections
+    
+    Admin ->    Enable Exam Form
+    Student ->  Fill the Exam Form
+    Admin ->    Disable Exam Form after date
+                Enable Hall Ticket After Validating the forms
+                Email The Hall Ticket Links
+    Student ->  Download the Hall Ticket by link provided to email or by direct login to account
+                
+                ***Exam Carry Out(Non Functional)***
+
+    Admin ->    Fill Marks of the Students
+                Generate Marksheets
+                Email The Marksheet Links
+    Student ->  Download the Marksheet.
+
+    **End**
+                
+}
