@@ -1,23 +1,23 @@
-<?php 
+<?php
 session_start();
-if(!isset($_SESSION['admin'])){
+if (!isset($_SESSION['admin'])) {
     header('location:../');
     exit;
 }
 
 
-$page="examination";
+$page = "examination";
 include "./header.php";
 include "../database.php";
 
 $query = "SELECT * FROM `exam-details` ORDER BY _id DESC";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $exams = [];
-if($result){
-    while($row=mysqli_fetch_row($result)){
+if ($result) {
+    while ($row = mysqli_fetch_row($result)) {
         array_push($exams, $row);
     }
-}else{
+} else {
     echo "<script>alert('error');document.location='./';</script>";
 }
 
@@ -45,13 +45,13 @@ if($result){
                 </th>
             </thead>
             <tbody>
-                <?php if(sizeof($exams)==0){
+                <?php if (sizeof($exams) == 0) {
                     echo "<tr><td colspan=\"4\"><h3><center>No Exam Added</center></h3></td></tr>";
                 } ?>
-                <?php for($i=0;$i<sizeof($exams);$i++){ ?>
+                <?php for ($i = 0; $i < sizeof($exams); $i++) { ?>
                     <tr>
                         <td>
-                            <?php echo $i+1; ?>
+                            <?php echo $i + 1; ?>
                         </td>
                         <td>
                             <?php echo $exams[$i][1]; ?>
@@ -60,7 +60,7 @@ if($result){
                             <?php echo $exams[$i][2]; ?>
                         </td>
                         <td>
-                            <button class="btn btn-success">Manage</button>
+                            <button class="btn btn-success" onclick="document.location='./viewExam.php?id=<?php echo $exams[$i][0]; ?>'">Manage</button>
                         </td>
                     </tr>
                 <?php } ?>
@@ -68,11 +68,8 @@ if($result){
         </table>
     </div><br><Br>
 </div>
-<?php 
-
-include "./footer.php";
-?>
+<?php include "./footer.php"; ?>
 
 <script>
-    document.getElementById('table-exam').style.minHeight=(window.innerHeight-350)+"px";
+    document.getElementById('table-exam').style.minHeight = (window.innerHeight - 350) + "px";
 </script>
