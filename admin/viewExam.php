@@ -162,7 +162,7 @@ if($result){
                             <?php echo $questions[$i][7]; ?>
                         </td>
                         <td>
-                            <button class="btn btn-primary">View</button>
+                            <button class="btn btn-primary" onclick="document.location='./viewQuestion.php?id=<?php echo $questions[$i][0]; ?>'">View</button>
                         </td>
                     </tr>
                     <?php
