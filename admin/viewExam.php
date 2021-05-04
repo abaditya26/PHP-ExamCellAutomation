@@ -5,7 +5,6 @@ if (!isset($_SESSION['admin'])) {
     exit;
 }
 
-
 $page = "examination";
 include "./header.php";
 include "../database.php";

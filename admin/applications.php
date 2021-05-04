@@ -109,7 +109,7 @@ if (isset($_GET['id'])) {
             <tr>
                 <td colspan="2">
                     <center>
-                        <a href="./sendmail.php?email=<?php echo $data[3]; ?>" class="btn btn-secondary">Send Mail</a>
+                        <a href="./mailto:<?php echo $data[3]; ?>" class="btn btn-secondary">Send Mail</a>
                     </center>
                 </td>
             </tr>

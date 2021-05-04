@@ -15,7 +15,7 @@
         $result=mysqli_query($conn,$query);
         if($result){
             $_SESSION['mailing']="YES";
-            header("location:../mail/sendconf.php");
+            header("location:./applications.php");
         }else{
             echo mysqli_error($conn);
         }

@@ -1,0 +1,7 @@
+
+ErrorDocument 400 http://localhost/PHP-ExamCellAutomation/404.php
+ErrorDocument 401 http://localhost/PHP-ExamCellAutomation/404.php
+ErrorDocument 403 http://localhost/PHP-ExamCellAutomation/404.php
+ErrorDocument 404 http://localhost/PHP-ExamCellAutomation/404.php
+ErrorDocument 500 http://localhost/PHP-ExamCellAutomation/404.php
+ErrorDocument 503 http://localhost/PHP-ExamCellAutomation/404.php
