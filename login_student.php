@@ -1,37 +1,37 @@
 <?php
 session_start();
-if(isset($_POST['suname'])){
+if (isset($_POST['suname'])) {
     extract($_POST);
     include "./database.php";
-    $query="SELECT * FROM `studentuser` WHERE `uname` = '$suname' AND `pass` = '$spassword' AND `permitted` = 'true'";
-    $result=mysqli_query($conn,$query);
-    if($result){
-        if(mysqli_num_rows($result)==1){
-            $data=mysqli_fetch_row($result);
+    $query = "SELECT * FROM `studentuser` WHERE `uname` = '$suname' AND `pass` = '$spassword' AND `permitted` = 'true'";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        if (mysqli_num_rows($result) == 1) {
+            $data = mysqli_fetch_row($result);
             session_unset();
-            $_SESSION['student']="in";
-            $_SESSION['uname']=$suname;
+            $_SESSION['student'] = "in";
+            $_SESSION['uname'] = $suname;
             header('location:./student/');
             //transfer header;
-        }else{
-            ?>
+        } else {
+?>
             <script>
                 alert('Credentials Does not match or Not Validated By Admin');
-                document.location='./';
+                document.location = './';
             </script>
-            <?php
+        <?php
         }
-    }else{
+    } else {
         echo mysqli_error($conn);
         ?>
         <script>
             alert('Error Occured');
-            document.loaction='./';
+            document.loaction = './';
         </script>
-        <?php
+    <?php
     }
-}else{
-    if(isset($_SESSION['student'])){
+} else {
+    if (isset($_SESSION['student'])) {
         header('location:./student/');
     }
     include "./header.php";
@@ -61,5 +61,5 @@ if(isset($_POST['suname'])){
             </div>
         </form>
     </center>
-    <?php
+<?php
 }

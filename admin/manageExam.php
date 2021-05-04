@@ -1,19 +1,19 @@
-<?php 
-    if(isset($_POST['examName'])){
-        extract($_POST);
-        include "../database.php";
-        $query = "INSERT INTO `exam-details`(`exam_name`, `exam_sem`) VALUES ('$examName','$examSemester')";
-        $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-        if($result){
-            echo "<script>alert('exam Added');document.location='./viewExam.php';</script>";
-        }else{
-            echo "<script>alert('error');document.location='./manageExam.php';</script>";
-        }
-        exit;
+<?php
+if (isset($_POST['examName'])) {
+    extract($_POST);
+    include "../database.php";
+    $query = "INSERT INTO `exam-details`(`exam_name`, `exam_sem`) VALUES ('$examName','$examSemester')";
+    $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+    if ($result) {
+        echo "<script>alert('exam Added');document.location='./viewExam.php';</script>";
+    } else {
+        echo "<script>alert('error');document.location='./manageExam.php';</script>";
     }
+    exit;
+}
 ?>
 
-<?php  
+<?php
 session_start();
 if (!isset($_SESSION['admin'])) {
     header('location:../');

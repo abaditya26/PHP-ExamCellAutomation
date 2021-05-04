@@ -1,4 +1,4 @@
-<?php  
+<?php
 session_start();
 if (!isset($_SESSION['admin'])) {
     header('location:../');
@@ -10,16 +10,16 @@ $page = "examination";
 include "./header.php";
 include "../database.php";
 
-if(isset($_POST['question'])){
+if (isset($_POST['question'])) {
     extract($_POST);
     $answer = $$select;
     echo $answer;
     $query = "INSERT INTO `questions`(`examId`, `question`, `option1`, `option2`, `option3`, `option4`, `answer`) 
     VALUES ($examId, '$question','$option1','$option2','$option3','$option4','$answer')";
     $result = mysqli_query($conn, $query);
-    if($result){
+    if ($result) {
         echo "<script>alert('Question Added');document.location='viewExam.php?id=$examId';</script>";
-    }else{
+    } else {
         echo "<script>alert('unable to add question');</script>";
     }
 }
@@ -27,31 +27,31 @@ if(isset($_POST['question'])){
 $examName = "";
 $examSem = "";
 $questions = [];
-if(isset($_GET['id'])){
+if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $query = "SELECT * FROM `exam-details` WHERE _id=$id";
     $result = mysqli_query($conn, $query);
-    if($result){
-        if(mysqli_num_rows($result)>0){
+    if ($result) {
+        if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_row($result);
             $examName = $row[1];
             $examSem = $row[2];
         }
-    }else{
+    } else {
         echo "<script>alert('error');document.location='./';</script>";
     }
-}else{
+} else {
     echo "<script>document.location='./examination.php';</script>";
     exit;
 }
 
 $query = "SELECT * FROM questions WHERE examId = $id";
 $result = mysqli_query($conn, $query);
-if($result){
-    while($row=mysqli_fetch_row($result)){
+if ($result) {
+    while ($row = mysqli_fetch_row($result)) {
         array_push($questions, $row);
     }
-}else{
+} else {
     echo "<script>alert('unable to fetch questions');</script>";
 }
 ?>
@@ -66,7 +66,7 @@ if($result){
         <table class="table table-stripped">
             <tr>
                 <th>
-                    Exam Name :- 
+                    Exam Name :-
                 </th>
                 <td>
                     <?php echo $examName; ?>
@@ -119,7 +119,7 @@ if($result){
             </select>
         </div>
         <div class="form-group">
-            <input type="submit" value="Add Question" class="btn btn-success"> 
+            <input type="submit" value="Add Question" class="btn btn-success">
             <input type="reset" value="Reset" class="btn btn-danger">
         </div>
     </form>
@@ -145,28 +145,28 @@ if($result){
                     Action
                 </th>
             </tr>
-            <?php if(sizeof($questions)==0){
+            <?php if (sizeof($questions) == 0) {
                 echo "<tr><th class='font-styled-header' colspan='4'><center><h3>No Questions Availiable</h3></center></th></tr>";
             } ?>
-            <?php 
-                for($i=0;$i<sizeof($questions);$i++){
-                    ?>
-                    <tr>
-                        <td>
-                            <?php echo $i+1; ?>
-                        </td>
-                        <td>
-                            <?php echo $questions[$i][2]; ?>
-                        </td>
-                        <td>
-                            <?php echo $questions[$i][7]; ?>
-                        </td>
-                        <td>
-                            <button class="btn btn-primary" onclick="document.location='./viewQuestion.php?id=<?php echo $questions[$i][0]; ?>'">View</button>
-                        </td>
-                    </tr>
-                    <?php
-                }
+            <?php
+            for ($i = 0; $i < sizeof($questions); $i++) {
+            ?>
+                <tr>
+                    <td>
+                        <?php echo $i + 1; ?>
+                    </td>
+                    <td>
+                        <?php echo $questions[$i][2]; ?>
+                    </td>
+                    <td>
+                        <?php echo $questions[$i][7]; ?>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" onclick="document.location='./viewQuestion.php?id=<?php echo $questions[$i][0]; ?>'">View</button>
+                    </td>
+                </tr>
+            <?php
+            }
             ?>
         </table>
     </div>
@@ -175,9 +175,9 @@ if($result){
 <?php include "./footer.php"; ?>
 
 <script>
-    function validateAnswer(){
+    function validateAnswer() {
         const ans = document.getElementById('select').value;
-        if(ans==""){
+        if (ans == "") {
             alert('Please Select Correct Answer First')
             return false;
         }

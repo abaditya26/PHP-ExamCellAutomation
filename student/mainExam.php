@@ -258,9 +258,9 @@ if (isset($_POST['examId'])) {
                     document.getElementById('data_area').innerHTML = JSON.stringify(questions);
                     document.data_form.submit();
                 }
-                var sec = currentTimer%60;
-                var min = currentTimer/60;
-                document.getElementById('timer').innerHTML = parseInt(min) +" : "+sec;
+                var sec = currentTimer % 60;
+                var min = currentTimer / 60;
+                document.getElementById('timer').innerHTML = parseInt(min) + " : " + sec;
                 setTimeout(() => {
                     timerDown()
                 }, 1000);

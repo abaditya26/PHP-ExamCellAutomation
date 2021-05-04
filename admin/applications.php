@@ -1,34 +1,35 @@
 <?php
 session_start();
-if(!isset($_SESSION['admin'])){
+if (!isset($_SESSION['admin'])) {
     header('location:../');
     exit;
 }
 
-function getPassword() { 
-    $characters = '0123456789@_$abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
-    $randomString = ''; 
-  
-    for ($i = 0; $i < 8; $i++) { 
-        $index = rand(0, strlen($characters) - 1); 
-        $randomString .= $characters[$index]; 
-    } 
-  
-    return $randomString; 
-} 
-if(isset($_GET['id'])){
+function getPassword()
+{
+    $characters = '0123456789@_$abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+
+    for ($i = 0; $i < 8; $i++) {
+        $index = rand(0, strlen($characters) - 1);
+        $randomString .= $characters[$index];
+    }
+
+    return $randomString;
+}
+if (isset($_GET['id'])) {
     extract($_GET);
     include "./header.php";
     include "../database.php";
-    $query="SELECT * FROM `studentuser` WHERE `_id` = $id";
-    $result=mysqli_query($conn,$query);
-    $data=[];
-    if($result){
-        $data=mysqli_fetch_row($result);
-    }else{
+    $query = "SELECT * FROM `studentuser` WHERE `_id` = $id";
+    $result = mysqli_query($conn, $query);
+    $data = [];
+    if ($result) {
+        $data = mysqli_fetch_row($result);
+    } else {
         echo mysqli_error($conn);
     }
-    ?>
+?>
     <div class="container">
         <br><br>
         <table class="table table-hover" style="border:inset;">
@@ -76,12 +77,12 @@ if(isset($_GET['id'])){
             </tr>
             <tr>
                 <td>Approved</td>
-                <td><?php echo $data[10]; ?></td>   
+                <td><?php echo $data[10]; ?></td>
             </tr>
-            <?php if($data[10]=="false"){
-                $_SESSION['id']=$data[0];
-                $_SESSION['email']=$data[3];
-                $_SESSION['name']=$data[2];
+            <?php if ($data[10] == "false") {
+                $_SESSION['id'] = $data[0];
+                $_SESSION['email'] = $data[3];
+                $_SESSION['name'] = $data[2];
             ?>
                 <tr>
                     <td colspan="2">
@@ -105,17 +106,19 @@ if(isset($_GET['id'])){
                     </td>
                 </tr>
             <?php } ?>
-            <tr><td colspan="2">
-                <center>
-                    <a href="./sendmail.php?email=<?php echo $data[3]; ?>" class="btn btn-secondary">Send Mail</a>
-                </center>
-            </td></tr>
+            <tr>
+                <td colspan="2">
+                    <center>
+                        <a href="./sendmail.php?email=<?php echo $data[3]; ?>" class="btn btn-secondary">Send Mail</a>
+                    </center>
+                </td>
+            </tr>
         </table>
     </div>
     <br><br>
-    <?php
+<?php
     include "./footer.php";
-}else{
+} else {
     header('location:./');
 }
 ?>

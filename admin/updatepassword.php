@@ -1,43 +1,43 @@
 <?php
 session_start();
-$page="profile";
-if(!isset($_SESSION['admin'])){
+$page = "profile";
+if (!isset($_SESSION['admin'])) {
     header('location:../');
     exit;
 }
-if(isset($_POST['oldpassword'])){
+if (isset($_POST['oldpassword'])) {
     extract($_POST);
     include "../database.php";
-    $uname=$_SESSION['uid'];
-    $query="SELECT `pass` FROM `adminuser` WHERE `uid` = '$uname'";
-    $result=mysqli_query($conn,$query);
-    if($result){
-        $row=mysqli_fetch_row($result);
-        if($row[0]==$oldpassword){
-                $query1="UPDATE `adminuser` SET `pass`='$newpassword' WHERE `uid` = '$uname'";
-                $result1=mysqli_query($conn,$query1);
-                if($result1){
-                    ?>
-                        <script>
-                            alert('Password Changed!');
-                            document.location="./";
-                        </script>
-                    <?php
-                    exit;
-                }else{
-                    echo "Error : - ".mysqli_error($conn);
-                }
-        }else{
-            ?>
-            <script> 
-                alert('Old Password Not Match');
-                document.location="./updatepassword.php";
-            </script> 
+    $uname = $_SESSION['uid'];
+    $query = "SELECT `pass` FROM `adminuser` WHERE `uid` = '$uname'";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        $row = mysqli_fetch_row($result);
+        if ($row[0] == $oldpassword) {
+            $query1 = "UPDATE `adminuser` SET `pass`='$newpassword' WHERE `uid` = '$uname'";
+            $result1 = mysqli_query($conn, $query1);
+            if ($result1) {
+?>
+                <script>
+                    alert('Password Changed!');
+                    document.location = "./";
+                </script>
             <?php
+                exit;
+            } else {
+                echo "Error : - " . mysqli_error($conn);
+            }
+        } else {
+            ?>
+            <script>
+                alert('Old Password Not Match');
+                document.location = "./updatepassword.php";
+            </script>
+<?php
             exit;
         }
-    }else{
-        echo "Error : ".mysqli_error($conn);
+    } else {
+        echo "Error : " . mysqli_error($conn);
     }
 }
 include "./header.php";
@@ -70,17 +70,17 @@ include "./header.php";
 </div>
 
 <script>
-    function checkpass(){
+    function checkpass() {
         var oldpassword = document.forms["changepass"]["oldpassword"].value
         var newpassword = document.forms["changepass"]["newpassword"].value
         var confirmnewpassword = document.forms["changepass"]["confirmnewpassword"].value
-        if(oldpassword==newpassword){
+        if (oldpassword == newpassword) {
             alert('Both New and Old passwords are same');
             return false;
         }
-        if(newpassword==confirmnewpassword){
+        if (newpassword == confirmnewpassword) {
             return true;
-        }else{
+        } else {
             alert('New Passwords Not Mached');
             return false;
         }

@@ -29,4 +29,3 @@ if(isset($_POST['data_area'])){
 }else{
     header('location:./exams.php');
 }
-?>

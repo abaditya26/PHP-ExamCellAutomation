@@ -1,40 +1,39 @@
 <?php
 session_start();
-if(isset($_POST['uname'])){
+if (isset($_POST['uname'])) {
     extract($_POST);
     include "./database.php";
-    $query="SELECT * FROM `adminuser` WHERE `uid` = '$uname' AND `pass` = '$password'";
-    $result=mysqli_query($conn,$query);
-    if($result){
-        if(mysqli_num_rows($result)==1){
-            $data=mysqli_fetch_row($result);
-            $_SESSION['admin']="in";
-            $_SESSION['uname']=$uname;
-            $_SESSION['uid']=$data[0];
+    $query = "SELECT * FROM `adminuser` WHERE `uid` = '$uname' AND `pass` = '$password'";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        if (mysqli_num_rows($result) == 1) {
+            $data = mysqli_fetch_row($result);
+            $_SESSION['admin'] = "in";
+            $_SESSION['uname'] = $uname;
+            $_SESSION['uid'] = $data[0];
             header('location:./admin/');
             //transfer header;
-        }else{
-            ?>
+        } else {
+?>
             <script>
                 alert('Credentials Does not match');
-                document.location='./';
+                document.location = './';
             </script>
-            <?php
+        <?php
         }
-    }else{
+    } else {
         ?>
         <script>
             alert('Error Occured');
-            document.loaction='./';
+            document.loaction = './';
         </script>
-        <?php
+    <?php
     }
-}else{
-    if(isset($_SESSION['admin'])){
+} else {
+    if (isset($_SESSION['admin'])) {
         header('location:./admin/');
-    }else{
-        
-    } 
+    } else {
+    }
     include "./header.php";
     ?>
     <center>
@@ -55,11 +54,11 @@ if(isset($_POST['uname'])){
                 <input type="password" name="password" id="password" class="form-control" required>
             </div>
             <div class="form-group">
-               
-                <input type="submit"  class="btn btn-success">
-                    
+
+                <input type="submit" class="btn btn-success">
+
             </div>
         </form>
     </center>
-    <?php
+<?php
 }
