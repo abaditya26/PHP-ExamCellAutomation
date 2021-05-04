@@ -2,8 +2,8 @@
     if(isset($_POST['examName'])){
         extract($_POST);
         include "../database.php";
-        $query = "INSERT INTO `exam-details`(`examName`, `examSem`) VALUES ('$examName','$examSemester')";
-        $result = mysqli_query($conn, $query);
+        $query = "INSERT INTO `exam-details`(`exam_name`, `exam_sem`) VALUES ('$examName','$examSemester')";
+        $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
         if($result){
             echo "<script>alert('exam Added');document.location='./viewExam.php';</script>";
         }else{
