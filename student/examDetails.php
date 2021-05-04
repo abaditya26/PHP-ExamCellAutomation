@@ -4,8 +4,6 @@ if(!isset($_GET['id'])){
     exit;
 }
 extract($_GET); // $id
-session_start();
-$userId = $_SESSION['uname'];
 $page = "EXAM";
 include "../database.php";
 $query = "SELECT * FROM `exam-details` WHERE _id=$id";
@@ -15,28 +13,16 @@ if($result){
         $id = $row[0];
         $name = $row[1];
         $sem = $row[2];
-
     }
 }else{
     echo "Error => ".mysqli_error($conn);
-}
-
-$query = "SELECT * FROM `user_exam_attempted` WHERE `user_id`='$userId'";
-$result = mysqli_query($conn, $query);
-if ($result) {
-    while ($row = mysqli_fetch_row($result)) {
-        $marks=$row[3];
-        $total = $row[4];
-    }
-} else {
-    echo "Error => " . mysqli_error($conn);
 }
 ?>
 <?php include "./header.php"; ?>
 <div class="container" style="max-width: 800px;">
     <center>
     <h3>
-        Exam Result
+        Exam Details
     </h3>
     </center>
     <table class="table table-stripped table-bordered">
@@ -50,14 +36,6 @@ if ($result) {
         </tr>
         <tr>
             <th>
-                Exam Semester
-            </th>
-            <td>
-                <?php echo $sem; ?>
-            </td>
-        </tr>
-        <tr>
-            <th>
                 Exam Duration
             </th>
             <td>
@@ -65,19 +43,36 @@ if ($result) {
             </td>
         </tr>
         <tr>
-           <td>
-            Marks
-           </td>
-           <td>
-                <?php echo $marks; ?>
-           </td>
+            <th>
+                Instructions
+            </th>
+            <td>
+                <ul>
+                    <li>
+                        The questions will be dynamic
+                    </li>
+                    <li>
+                        Exam will not be submitted until you click end exam
+                    </li>
+                    <li>
+                        In case you refreshed the exam, you will need to reattempt all exam.
+                    </li>
+                    <li>
+                        Questions might be different in each attempt
+                    </li>
+                </ul>
+            </td>
         </tr>
         <tr>
-            <td>
-                Total
-            </td>
-            <td>
-                <?php echo $total; ?>
+            <td colspan="2">
+                <center>
+                <form action="./mainExam.php" method="post" onsubmit="return confirmStart()">
+                    <input type="text" name="examId" id="examId" style="display: none;" value="<?php echo $id; ?>">
+                    <input type="text" name="examName" id="examName" style="display: none;" value="<?php echo $name; ?>">
+                    <input type="submit" value="Start Exam" class="btn btn-success">
+                </form>
+                
+                </center>
             </td>
         </tr>
     </table>

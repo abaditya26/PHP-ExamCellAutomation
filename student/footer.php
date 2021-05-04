@@ -1,4 +1,4 @@
-    <footer class="footer mt-auto py-3" style="background:rgba(102,102,102,0.5); padding:0px;color:white;">
+    <footer class="footer mt-auto py-3" style="background:rgba(102,102,102,0.5); padding:0px;color:white; bottom:0;position:fixed; width:100%;">
 
         <p style="text-align: center; margin:0;padding:0;">
             <small>

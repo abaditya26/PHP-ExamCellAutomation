@@ -91,8 +91,8 @@
                                 Profile
                             </a>
                         </li>
-                        <li class="nav-item flex-fill <?php if ($page == "exam") { echo "active"; } ?>">
-                            <a class="nav-link" href="./">
+                        <li class="nav-item flex-fill <?php if ($page == "EXAM") { echo "active"; } ?>">
+                            <a class="nav-link" href="./exams.php">
                                 Exam
                             </a>
                         </li>
