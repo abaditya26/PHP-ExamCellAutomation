@@ -4,13 +4,28 @@ if (isset($_POST['examId'])) {
     include "../database.php";
     session_start();
     $_SESSION['examId'] = $examId;
-    $query = "SELECT * FROM questions WHERE examId=$examId";
+    $id = $_SESSION['uname'];
+    $query = "SELECT * FROM userquestions WHERE examId=$examId AND userId='$id'";
     $result = mysqli_query($conn, $query);
     if ($result) {
-        //query fired
         $questions = [];
-        while ($row = mysqli_fetch_row($result)) {
-            array_push($questions, $row);
+        if (mysqli_num_rows($result) == 0) {
+            header('location:./examDetails.php?id=$examId');
+        } else {
+            //query fired
+            while ($row = mysqli_fetch_row($result)) {
+                array_push($questions, $row);
+            }
+        }
+        $timer = 1800;
+        $query = "SELECT timer FROM timer WHERE userId = '$id' AND examId = $examId";
+        $result= mysqli_query($conn, $query);
+        if($result){
+            if(mysqli_num_rows($result)==1){
+                $timer = mysqli_fetch_row($result)[0];
+            }else{
+                mysqli_query($conn, "INSERT INTO timer(userId, examId, timer) VALUES('$id',$examId,$timer)");
+            }
         }
         $uname = $_SESSION['uname'];
         shuffle($questions);
@@ -158,6 +173,9 @@ if (isset($_POST['examId'])) {
                 <textarea name="data_area" id="data_area" cols="30" rows="10" style="display: none;"></textarea>
             </form>
 
+            <iframe src="./setSelected.php" frameborder="0" id="optionIframe" style="display: none;"></iframe>
+            <iframe src="./setTimer.php" frameborder="0" id="timerFrame" style="display: none;"></iframe>
+
         </body>
 
         </html>
@@ -165,16 +183,16 @@ if (isset($_POST['examId'])) {
 
         <script>
             var currentIndex = 0;
-            var currentTimer = 1800;
+            var currentTimer = <?php echo $timer; ?>;
             var questions = [
                 <?php for ($i = 0; $i < sizeof($questions); $i++) {
                     echo "[";
-                    echo "'" . $questions[$i][2] . "',";
                     echo "'" . $questions[$i][3] . "',";
                     echo "'" . $questions[$i][4] . "',";
                     echo "'" . $questions[$i][5] . "',";
                     echo "'" . $questions[$i][6] . "',";
-                    echo "'',";
+                    echo "'" . $questions[$i][7] . "',";
+                    echo "'" . $questions[$i][8] . "',";
                     echo "'" . $questions[$i][0] . "'";
                     echo "],";
                 } ?>
@@ -220,6 +238,10 @@ if (isset($_POST['examId'])) {
             function selectOption(o) {
                 const option = questions[currentIndex][o];
                 questions[currentIndex][5] = option
+
+                document.getElementById('optionIframe').contentDocument.getElementById('selected').value=option;
+                document.getElementById('optionIframe').contentDocument.getElementById('questionID').value=questions[currentIndex][6];
+                document.getElementById('optionIframe').contentDocument.selectedForm.submit();
             }
             misatmpt = 3;
 
@@ -261,6 +283,14 @@ if (isset($_POST['examId'])) {
                 var sec = currentTimer % 60;
                 var min = currentTimer / 60;
                 document.getElementById('timer').innerHTML = parseInt(min) + " : " + sec;
+                if(currentTimer%5==0){
+                    try{
+                        document.getElementById('timerFrame').contentDocument.getElementById('timer').value = currentTimer;
+                        document.getElementById('timerFrame').contentDocument.getElementById('examId').value = "<?php echo $examId; ?>";
+                        document.getElementById('timerFrame').contentDocument.getElementById('userId').value = "<?php echo $id; ?>";
+                        document.getElementById('timerFrame').contentDocument.timerForm.submit();
+                    }catch(e){}
+                }
                 setTimeout(() => {
                     timerDown()
                 }, 1000);
