@@ -2,10 +2,11 @@
 
 <div class="container" style="min-height: 600px;">
     <center>
-        <h2>
         <br><br><br><br><br><br>
+        <h2>
             Sorry. Your requested page not found.
         </h2>
+        <br><br><br><br><br><br>
     </center>
 </div>
 

@@ -1,3 +1,32 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: May 08, 2021 at 04:32 AM
+-- Server version: 5.7.31
+-- PHP Version: 7.3.21
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `db_exam_cell_automation`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminuser`
+--
+
 DROP TABLE IF EXISTS `adminuser`;
 CREATE TABLE IF NOT EXISTS `adminuser` (
   `_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -229,6 +258,57 @@ INSERT INTO `subjects` (`_id`, `semester`, `course`, `subjects`, `subject_code`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `timer`
+--
+
+DROP TABLE IF EXISTS `timer`;
+CREATE TABLE IF NOT EXISTS `timer` (
+  `_id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` varchar(20) NOT NULL,
+  `examId` int(11) NOT NULL,
+  `timer` int(11) NOT NULL,
+  PRIMARY KEY (`_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `timer`
+--
+
+INSERT INTO `timer` (`_id`, `userId`, `examId`, `timer`) VALUES
+(1, '1800180102', 2, 1625);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userquestions`
+--
+
+DROP TABLE IF EXISTS `userquestions`;
+CREATE TABLE IF NOT EXISTS `userquestions` (
+  `_id` int(11) NOT NULL AUTO_INCREMENT,
+  `examId` int(11) NOT NULL,
+  `userId` text NOT NULL,
+  `question` text NOT NULL,
+  `option1` text NOT NULL,
+  `option2` text NOT NULL,
+  `option3` text NOT NULL,
+  `option4` text NOT NULL,
+  `selected` text NOT NULL,
+  `answer` text NOT NULL,
+  PRIMARY KEY (`_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `userquestions`
+--
+
+INSERT INTO `userquestions` (`_id`, `examId`, `userId`, `question`, `option1`, `option2`, `option3`, `option4`, `selected`, `answer`) VALUES
+(1, 2, '1800180102', 'Q1', 'o1', 'o2', 'o3', 'o4', 'o2', 'o1'),
+(2, 2, '1800180102', 'Q2', 'o21', 'o22', 'o23', 'o24', 'o24', 'o21');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_exam_attempted`
 --
 
@@ -240,12 +320,16 @@ CREATE TABLE IF NOT EXISTS `user_exam_attempted` (
   `score` varchar(20) NOT NULL,
   `total` varchar(20) NOT NULL,
   PRIMARY KEY (`_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_exam_attempted`
 --
 
 INSERT INTO `user_exam_attempted` (`_id`, `user_id`, `exam_id`, `score`, `total`) VALUES
-(5, '1800180102', 2, '2', '2');
+(8, '1800180102', 2, '1', '2');
+COMMIT;
 
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
