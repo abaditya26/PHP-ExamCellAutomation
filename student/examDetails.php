@@ -1,10 +1,14 @@
 <?php
+if(!isset($_SESSION)){
+    session_start();
+}
 if (!isset($_GET['id'])) {
     header('location:./exams.php');
     exit;
 }
 extract($_GET); // $id
 $page = "EXAM";
+
 include "../database.php";
 $query = "SELECT * FROM `exam-details` WHERE _id=$id";
 $result = mysqli_query($conn, $query);
@@ -13,6 +17,28 @@ if ($result) {
         $id = $row[0];
         $name = $row[1];
         $sem = $row[2];
+    }
+    $uid = $_SESSION['uname'];
+    $query = "SELECT * FROM userquestions WHERE examId=$id AND userId='$uid'";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        $questions = [];
+        if (mysqli_num_rows($result) == 0) {
+            //new to questions add to database
+            $query = "SELECT * FROM questions WHERE examId=$id";
+            $result = mysqli_query($conn, $query);
+            while($row = mysqli_fetch_row($result)){
+                $question = $row[2];
+                $option1 = $row[3];
+                $option2 = $row[4];
+                $option3 = $row[5];
+                $option4 = $row[6];
+                $selected = "";
+                $answer = $row[7];
+                $userId = $uid;
+                mysqli_query($conn,"INSERT INTO `userquestions`(`examId`, `userId`, `question`, `option1`, `option2`, `option3`, `option4`, `selected`, `answer`) VALUES ('$id','$userId','$question','$option1','$option2','$option3','$option4','$selected','$answer')");
+            }
+        }
     }
 } else {
     echo "Error => " . mysqli_error($conn);
